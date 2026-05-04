@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+
+
+
+docker build -t pulse .
+docker rm -f star || true
+docker run -d --name star -p 8081:80 pulse:latest
